@@ -6,6 +6,8 @@ remappings = [
     '@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/',
     '@openzeppelin/contracts=lib/openzeppelin-contracts/contracts',
 ]
+fs_permissions = [{ access = "read", path = "./"}]
+
 
 [etherscan]
 mainnet = { key = "${ETHERSCAN_API_KEY}" }
