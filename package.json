@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@chainlink/functions-toolkit": "^0.2.8"
+  },
+  "scripts": {
+    "simulate": "source .env && node ./functions/simulators/alpacaSimulator.js"
+  }
+}

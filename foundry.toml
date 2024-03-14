@@ -2,5 +2,21 @@
 src = "src"
 out = "out"
 libs = ["lib"]
+remappings = [
+    '@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/',
+    '@openzeppelin/contracts=lib/openzeppelin-contracts/contracts',
+]
+
+[etherscan]
+mainnet = { key = "${ETHERSCAN_API_KEY}" }
+polygon = { key = "${POLYGONSCAN_API_KEY}" }
+
+[rpc_endpoints]
+polygon = "${POLYGON_RPC_URL}"
+
+[invariant]
+runs = 64
+depth = 64
+fail_on_revert = true
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

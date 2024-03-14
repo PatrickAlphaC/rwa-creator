@@ -1,66 +1,54 @@
-## Foundry
+*This repo is a work in progress. Like, nothing in this repo makes sense.*
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+# RWAs
 
-Foundry consists of:
+## Types
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+3 different setups:
 
-## Documentation
+- Asset location
+  - On or Off chain
+- Collateral location
+  - On or Off chain
+- Backing type
+  - Direct or Indirect (synthetic)
 
-https://book.getfoundry.sh/
+so since we have 3 categories each with 2 options, we have 8 different types of RWAs.
 
-## Usage
+## Examples 
 
-### Build
+- Onchain asset, onchain collateral, direct backing 
+  - Examples: WETH
+  - Not demo'd in this repo
+- Onchain asset, onchain collateral, indirect backing (synthetic)
+  - Examples: WBTC 
+  - Not demo'd in this repo
+- Onchain asset, offchain collateral, direct backing 
+  - Examples: N/A
+  - Maybe like a wrapped BTC ETF?
+  - Not demo'd in this repo
+- Onchain asset, offchain collateral, indirect backing (synthetic)
+  - Examples: N/A
+  - Maybe like a wrapped BTC ETF that represents an ETH ETF?
+  - Not demo'd in this repo
+- Offchain asset, onchain collateral, direct backing 
+  - Examples: N/A 
+  - Like a stablecoin backed by other stablecoins (sort of DAI lmao)
+  - Not demo'd in this repo
+- Offchain asset, onchain collateral, indirect backing (synthetic)
+  - Examples: DAI
+  - In this repo: sTSLA w/ chainlink price feeds
+- Offchain asset, offchain collateral, direct backing 
+  - Examples: USDC
+  - In this repo: dTSLA w/ chainlink functions
+- Offchain asset, offchain collateral, indirect backing (synthetic)
+  - Examples: USDT
+  - In this repo: sTSLA w/ chainlink functions
 
-```shell
-$ forge build
-```
+Also in this repo:
+- Generalized CCIP setup for the 3 types we demo in this repo. CrossChain functionality will be crucial for RWAs to be useful. 
 
-### Test
+## Notes for patrick
 
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+Alpaca endpoints:
+- https://paper-api.alpaca.markets/v2
