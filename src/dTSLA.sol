@@ -12,7 +12,7 @@ import {OracleLib, AggregatorV3Interface} from "./libraries/OracleLib.sol";
  * @notice This is an example contract to show how to make HTTP requests using Chainlink
  * @dev This contract uses hardcoded values and should not be used in production.
  */
-contract BackedTSLA is FunctionsClient, ConfirmedOwner, ERC20 {
+contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20 {
     using FunctionsRequest for FunctionsRequest.Request;
     using OracleLib for AggregatorV3Interface;
 

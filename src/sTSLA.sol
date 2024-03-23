@@ -14,7 +14,7 @@ import {OracleLib, AggregatorV3Interface} from "./libraries/OracleLib.sol";
  * As far as the incentives to do this, peopl who want to 
  * short tesla and long eth would have the incentive to do this. 
  */
-contract sTSLA_feeds is ERC20 {
+contract sTSLA is ERC20 {
     using OracleLib for AggregatorV3Interface;
 
     error sTSLA_feeds__InsufficientCollateral();
