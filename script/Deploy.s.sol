@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import {Script} from "forge-std/Script.sol";
 import {HelperConfig} from "./HelperConfig.sol";
-import {BackedTSLA} from "../src/BackedTSLA.sol";
+import {dTSLA} from "../src/dTSLA.sol";
 
 contract Deploy is Script {
     string constant alpacaSource = "./functions/sources/alpacaBalance.js";
@@ -19,7 +19,7 @@ contract Deploy is Script {
 
         string memory source = vm.readFile(alpacaSource);
         vm.startBroadcast();
-        new BackedTSLA(subId, source, functionsRouter, donId, tslaFeed);
+        new dTSLA(subId, source, functionsRouter, donId, tslaFeed);
         vm.stopBroadcast();
     }
 }
