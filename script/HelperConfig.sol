@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.25;
 
-import {MockV3Aggregator} from "../src/test/mocks/MockV3Aggregator.sol";
+import { MockV3Aggregator } from "../src/test/mocks/MockV3Aggregator.sol";
+import { MockFunctionsRouter } from "../src/test/mocks/MockFunctionsRouter.sol";
 
 contract HelperConfig {
     NetworkConfig public activeNetworkConfig;
@@ -19,14 +20,16 @@ contract HelperConfig {
     // Mocks
     MockV3Aggregator public tslaFeedMock;
     MockV3Aggregator public ethUsdFeedMock;
+    MockFunctionsRouter public functionsRouterMock;
 
-    uint8 public constant DECIAMLS = 18;
-    int256 public constant INITIAL_ANSER = 2000e18;
+    // TSLA USD & ETH USD both have 8 decimals
+    uint8 public constant DECIAMLS = 8;
+    int256 public constant INITIAL_ANSER = 2000e8;
 
     constructor() {
         chainIdToNetworkConfig[137] = getPolygonConfig();
-        chainIdToNetworkConfig[80001] = getMumbaiConfig();
-        chainIdToNetworkConfig[31337] = _setupAnvilConfig();
+        chainIdToNetworkConfig[80_001] = getMumbaiConfig();
+        chainIdToNetworkConfig[31_337] = _setupAnvilConfig();
         activeNetworkConfig = chainIdToNetworkConfig[block.chainid];
     }
 
@@ -37,7 +40,7 @@ contract HelperConfig {
             functionsRouter: 0xdc2AAF042Aeff2E68B3e8E33F19e4B9fA7C73F10,
             donId: 0x66756e2d706f6c79676f6e2d6d61696e6e65742d310000000000000000000000,
             subId: 0 // TODO
-        });
+         });
     }
 
     function getMumbaiConfig() internal pure returns (NetworkConfig memory config) {
@@ -54,15 +57,16 @@ contract HelperConfig {
         anvilNetworkConfig = NetworkConfig({
             tslaPriceFee: address(tslaFeedMock),
             ethUsdPriceFeed: address(ethUsdFeedMock),
-            functionsRouter: address(0), // whoops
+            functionsRouter: address(functionsRouterMock),
             donId: 0x66756e2d706f6c79676f6e2d6d756d6261692d31000000000000000000000000, // Dummy
             subId: 0 // Dummy
-        });
+         });
     }
 
     function _setupAnvilConfig() internal returns (NetworkConfig memory) {
         tslaFeedMock = new MockV3Aggregator(DECIAMLS, INITIAL_ANSER);
         ethUsdFeedMock = new MockV3Aggregator(DECIAMLS, INITIAL_ANSER);
+        functionsRouterMock = new MockFunctionsRouter();
         return getAnvilEthConfig();
     }
 }
