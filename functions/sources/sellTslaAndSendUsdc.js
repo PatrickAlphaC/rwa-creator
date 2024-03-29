@@ -53,6 +53,7 @@ async function main() {
         await cancelOrder(client_order_id)
         return Functions.encodeUint256(0)
     }
+
     /*//////////////////////////////////////////////////////////////
                          SEND USDC TO CONTRACT
     //////////////////////////////////////////////////////////////*/
@@ -81,14 +82,14 @@ async function placeOrder(symbol, qty, side) {
             'APCA-API-KEY-ID': secrets.alpacaKey,
             'APCA-API-SECRET-KEY': secrets.alpacaSecret
         },
-        params: {
+        data: {
             side: side,
             type: "market",
             time_in_force: "gtc",
             symbol: symbol,
             qty: qty
         }
-    });
+    })
 
     const [response] = await Promise.all([
         alpacaSellRequest,
@@ -112,7 +113,7 @@ async function cancelOrder(client_order_id) {
             'APCA-API-KEY-ID': secrets.alpacaKey,
             'APCA-API-SECRET-KEY': secrets.alpacaSecret
         }
-    });
+    })
 
     const [response] = await Promise.all([
         alpacaCancelRequest,
@@ -137,7 +138,7 @@ async function waitForOrderToFill(client_order_id) {
                 'APCA-API-KEY-ID': secrets.alpacaKey,
                 'APCA-API-SECRET-KEY': secrets.alpacaSecret
             }
-        });
+        })
 
         const [response] = await Promise.all([
             alpacaOrderStatusRequest,
@@ -169,11 +170,11 @@ async function sendUsdcToContract(usdcAmount) {
             'APCA-API-KEY-ID': secrets.alpacaKey,
             'APCA-API-SECRET-KEY': secrets.alpacaSecret
         },
-        body: JSON.stringify({
+        data: {
             "amount": usdcAmount,
             "address": RWA_CONTRACT,
             "asset": CRYPTO_TICKER
-        })
+        }
     })
 
     const [response] = await Promise.all([
@@ -199,7 +200,7 @@ async function waitForCryptoTransferToComplete(transferId) {
                 'APCA-API-KEY-ID': secrets.alpacaKey,
                 'APCA-API-SECRET-KEY': secrets.alpacaSecret
             }
-        });
+        })
 
         const [response] = await Promise.all([
             alpacaTransferStatusRequest,
@@ -234,7 +235,7 @@ function _checkKeys() {
 }
 
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 const result = await main()
