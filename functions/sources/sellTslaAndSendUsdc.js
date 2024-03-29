@@ -1,15 +1,16 @@
-// What does this script do? 
-// 1. Sells TSLA on alpaca for USD 
-// 2. Buys USDC -> with USD
-// 3. Sends USDC -> contract for withdrawl
+// // What does this script do? 
+// // 1. Sells TSLA on alpaca for USD 
+// // 2. Buys USDC -> with USD
+// // 3. Sends USDC -> contract for withdrawl
 
-// Return 0 on unsuccessful sell 
+// // Return 0 on unsuccessful sell 
 
 const ASSET_TICKER = "TSLA"
 const CRYPTO_TICKER = "USDCUSD"
 // TODO
 const RWA_CONTRACT = "0x7358D4CDF1c468aA018ec41ddD98b44879a10962"
 const SLEEP_TIME = 5000 // 5 seconds
+
 
 async function main() {
     const amountTsla = args[0]
@@ -70,7 +71,6 @@ async function main() {
 
 // returns string: client_order_id, string: orderStatus, int: responseStatus
 async function placeOrder(symbol, qty, side) {
-
     // TODO, something is wrong with this request, need to fix
     const alpacaSellRequest = Functions.makeHttpRequest({
         method: 'POST',
@@ -237,5 +237,5 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-main()
-
+const result = await main()
+return result

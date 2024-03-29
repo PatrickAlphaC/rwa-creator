@@ -48,7 +48,6 @@ const [response] = await Promise.all([
   alpacaRequest,
 ])
 
-console.log("Raw response: ", response)
 const portfolioBalance = response.data.portfolio_value
 console.log(`Alpaca Portfolio Balance: $${portfolioBalance}`)
 // The source code MUST return a Buffer or the request will return an error message

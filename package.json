@@ -2,6 +2,7 @@
   "name": "rwa-creator",
   "dependencies": {
     "@chainlink/functions-toolkit": "^0.2.8",
+    "dotenv": "^16.4.5",
     "prettier": "^3.2.5"
   },
   "scripts": {
