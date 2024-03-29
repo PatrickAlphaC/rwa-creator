@@ -1,0 +1,15 @@
+{
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "tx_hash": "string",
+    "direction": "INCOMING",
+    "status": "PROCESSING",
+    "amount": "string",
+    "usd_value": "string",
+    "network_fee": "string",
+    "fees": "string",
+    "chain": "string",
+    "asset": "string",
+    "from_address": "string",
+    "to_address": "string",
+    "created_at": "2024-03-29T17:47:16.283Z"
+}

@@ -17,10 +17,20 @@ abstract contract Base_Test is Test {
     function setUp() public virtual {
         deployDTsla = new DeployDTsla();
 
-        (uint64 subId, string memory source, address functionsRouter, bytes32 donId, address tslaFeed) =
-            deployDTsla.getdTslaRequirements();
+        (
+            uint64 subId,
+            string memory mintSource,
+            string memory redeemSource,
+            address functionsRouter,
+            bytes32 donId,
+            address tslaFeed,
+            address usdcFeed,
+            address redemptionCoin
+        ) = deployDTsla.getdTslaRequirements();
         mockFunctionsRouter = MockFunctionsRouter(functionsRouter);
-        dtsla = deployDTsla.deployDTSLA(subId, source, functionsRouter, donId, tslaFeed);
+        dtsla = deployDTsla.deployDTSLA(
+            subId, mintSource, redeemSource, functionsRouter, donId, tslaFeed, usdcFeed, redemptionCoin
+        );
     }
 
     function testCanSendMintRequestWithTslaBalance() public {
