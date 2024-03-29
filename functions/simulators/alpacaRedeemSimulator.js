@@ -1,4 +1,4 @@
-const requestConfig = require("../configs/alpacaRequestConfig.js")
+const requestConfig = require("../configs/alpacaRedeemConfig.js")
 const { simulateScript, decodeResult } = require("@chainlink/functions-toolkit")
 
 

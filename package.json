@@ -1,9 +1,12 @@
 {
   "name": "rwa-creator",
   "dependencies": {
-    "@chainlink/functions-toolkit": "^0.2.8"
+    "@chainlink/functions-toolkit": "^0.2.8",
+    "prettier": "^3.2.5"
   },
   "scripts": {
-    "simulate": "source .env && node ./functions/simulators/alpacaSimulator.js"
+    "simulate": "source .env && node ./functions/simulators/alpacaMintSimulator.js",
+    "mint": "source .env && node ./functions/simulators/alpacaMintSimulator.js",
+    "redeem": "source .env && node ./functions/simulators/alpacaRedeemSimulator.js"
   }
 }
