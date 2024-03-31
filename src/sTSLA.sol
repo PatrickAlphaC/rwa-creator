@@ -11,7 +11,7 @@ import {OracleLib, AggregatorV3Interface} from "./libraries/OracleLib.sol";
  * 
  * This codebase is NOT COMPLETE
  * 
- * As far as the incentives to do this, peopl who want to 
+ * As far as the incentives to do this, people who want to 
  * short tesla and long eth would have the incentive to do this. 
  */
 contract sTSLA is ERC20 {
