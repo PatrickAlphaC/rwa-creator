@@ -127,7 +127,7 @@ The reason we have 4 examples, is that each step from 1 -> 4, we learn a little 
 1. Only the owner can mint `dTSLA`
 2. Anyone can redeem `dTSLA` for `USDC` or "the stablecoin" of choice.
   - Chainlink functions will kick off a `TSLA` sell for USDC, and then send it to the contract
-3. The user will have then then call `finishRedeem` to get their `USDC`.
+3. The user will have to then call `finishRedeem` to get their `USDC`.
 
 ### V2 (not implemented)
 1. Users can send USDC -> `dTSLA.sol` via `sendMintRequest` via Chainlink Functions. This will kick off the following:
