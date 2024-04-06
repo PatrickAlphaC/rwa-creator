@@ -105,13 +105,12 @@ So since we have 3 categories each with 2 options, we have 8 different types of 
 </p>
 <br/>
 
-# The four examples in this repo
+# The three examples in this repo
 
 In this repo, we will go over how to tokenize a real world asset. 
 
 1. Cross-Chain WETH with On-Chain collateral, Directly Backed: `AOnCOnDB` - `CrossChainWETH.sol` 
-2. Cross-Chain WETH with On-Chain collateral, Synthetic: `AOnCOnSB` - `sCrossChainWETH.sol` 
-3. TSLA Share with On-Chain collateral, Synthetic: `AOffCOnSB` - `sTSLA.sol` 
+3. TSLA Share with On-Chain collateral, Synthetic: `AOffCOnSB` - `sTSLA.sol` ✅ 
 4. TSLA Share with Off-Chain collateral, Directly Backed: `AOffCOffDB` - `dTSLA.sol` ✅ 
 
 The idea here, is that once you see the power of how to do our fourth example, you should be able to *tokenize any real world assets* in the world. 
@@ -133,6 +132,17 @@ The reason we have 4 examples, is that each step from 1 -> 4, we learn a little 
   - USD will be used to buy TSLA shares
   - The Chainlink Functions will then callback to `_mintFulFillRequest`, to enable `dTSLA` tokens to the user.
 2. The user can then call `finishMint` to withdraw their minted `dTSLA` tokens. 
+
+
+## sTSLA.sol
+
+This is essentially a synthetic TSLA token, it's follows a similar architecture to a stablecoin, where we use a Chainlink price feed to govern the price of the token.
+
+You can learn more about how to build these by following the [Cyfrin Updraft](https://updraft.cyfrin.io/) curriculum. 
+
+## CrossChainWETH.sol
+
+So, token transfers are baked into the CCIP protocol, but you have to work with the DONs to get these setup. We will show you how to create your own token pools with CCIP and not bother working with the DONs, since CCIP allows you to send arbitrary data to the other chain.
 
 
 # Getting Started 
