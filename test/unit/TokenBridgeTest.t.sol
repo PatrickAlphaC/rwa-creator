@@ -70,8 +70,7 @@ contract TokenBridgeTest is Test {
     }
 
     function testReceiveTokensNewChain() public {
-        bytes memory mintData =
-            abi.encodeWithSelector(BridgedWETH.bridgeMint.selector, NEW_CHAIN_SELECTOR, STARTING_AMOUNT);
+        bytes memory mintData = abi.encode(RECEIVER, STARTING_AMOUNT);
         bytes32 messageId = _tokensSent();
         Client.Any2EVMMessage memory message = Client.Any2EVMMessage({
             messageId: messageId,
@@ -80,13 +79,12 @@ contract TokenBridgeTest is Test {
             data: mintData,
             destTokenAmounts: new Client.EVMTokenAmount[](0)
         });
+
         vm.prank(address(mockRouter));
+        newBridge.ccipReceive(message);
 
-        // TODO this isn't working, figure out why?
-        // newBridge.ccipReceive(message);
-
-        // // This should have minted the tokens on the new chain
-        // assert(newChainWETH.balanceOf(RECEIVER) == STARTING_AMOUNT);
+        // This should have minted the tokens on the new chain
+        assert(newChainWETH.balanceOf(RECEIVER) == STARTING_AMOUNT);
     }
 
     /*//////////////////////////////////////////////////////////////

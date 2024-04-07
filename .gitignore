@@ -14,3 +14,5 @@ docs/
 .env
 node_modules/
 .notes.md
+broadcast/
+etherscan.json

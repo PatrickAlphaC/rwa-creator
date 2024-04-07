@@ -85,6 +85,24 @@ contract HelperConfig {
         // https://alpaca.markets/support/crypto-wallet-faq
     }
 
+    function getSepoliaConfig() internal pure returns (NetworkConfig memory config) {
+        config = NetworkConfig({
+            tslaPriceFeed: 0xc59E3633BAAC79493d908e63626716e204A45EdF, // this is LINK / USD but it'll work fine
+            usdcPriceFeed: 0xA2F78ab2355fe2f984D808B5CeE7FD0A93D5270E,
+            ethUsdPriceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306,
+            functionsRouter: 0xb83E47C2bC239B3bf370bc41e1459A34b41238D0,
+            donId: 0x66756e2d657468657265756d2d7365706f6c69612d3100000000000000000000,
+            subId: 2274,
+            // USDC on Mumbai
+            redemptionCoin: 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238,
+            linkToken: 0x779877A7B0D9E8603169DdbD7836e478b4624789,
+            ccipRouter: 0x0BF3dE8c5D3e8A2B34D2BEeB17ABfCeBaf363A59,
+            ccipChainSelector: 16_015_286_601_757_825_753
+        });
+        // minimumRedemptionAmount: 30e6 // Please see your brokerage for min redemption amounts
+        // https://alpaca.markets/support/crypto-wallet-faq
+    }
+
     function getAnvilEthConfig() internal view returns (NetworkConfig memory anvilNetworkConfig) {
         anvilNetworkConfig = NetworkConfig({
             tslaPriceFeed: address(tslaFeedMock),

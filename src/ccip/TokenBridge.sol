@@ -18,6 +18,7 @@ contract TokenBridge is OwnerIsCreator, CCIPReceiver {
                             STATE VARIABLES
     //////////////////////////////////////////////////////////////*/
     uint256 private constant GAS_LIMIT = 1_000_000;
+    uint256 private constant BYTES4_SIZE = 4;
 
     LinkTokenInterface private immutable i_linkToken;
     mapping(uint64 => bool) private s_supportedChainSelectors;
@@ -96,10 +97,8 @@ contract TokenBridge is OwnerIsCreator, CCIPReceiver {
             revert TokenBridge__InvalidReceiver(destinationBridgedWethAddress);
         }
 
-        // We have to do a check, if the dest chain is the token "home" we should unlock instead of mint
-        // We are going to call the `bridgeMint` function on our L2/Bridged WETH contract
-        bytes memory mintData =
-            abi.encodeWithSelector(BridgedWETH.bridgeMint.selector, destinationChainReceiver, amount);
+        // We don't need or want them passing function selectors, just the amounts and chain.
+        bytes memory mintData = abi.encode(destinationChainReceiver, amount);
         Client.EVM2AnyMessage memory evm2AnyMessage = _buildCCIPMessage(destinationBridgedWethAddress, mintData);
 
         // Get the fee required to send the CCIP message
@@ -115,12 +114,12 @@ contract TokenBridge is OwnerIsCreator, CCIPReceiver {
         emit MessageSent(messageId, destinationChainSelector, destinationBridgedWethAddress, mintData, msg.sender, fee);
 
         bool success = i_weth.transferFrom(msg.sender, address(this), amount);
+        if (!success) {
+            revert TokenBridge__TransferFailed();
+        }
         if (i_thisChainSelector != i_wethHomeChainSelector) {
             // Burn the WETH if we're not at the "home base"
             i_weth.bridgeBurn(msg.sender, amount);
-        }
-        if (!success) {
-            revert TokenBridge__TransferFailed();
         }
         return messageId;
     }
@@ -141,23 +140,17 @@ contract TokenBridge is OwnerIsCreator, CCIPReceiver {
             extraArgs: Client._argsToBytes(
                 // Additional arguments, setting gas limit
                 Client.EVMExtraArgsV1({ gasLimit: GAS_LIMIT })
-                ),
+            ),
             feeToken: address(0) // address(0) means you'll pay in the native asset
          });
     }
 
     function _ccipReceive(Client.Any2EVMMessage memory message) internal virtual override {
-        (bytes4 selector, address destinationChainReceiver, uint256 amount) =
-            abi.decode(message.data, (bytes4, address, uint256));
-        if (message.sourceChainSelector == i_wethHomeChainSelector) {
-            // Unlock if you're at the "home base"
-            bool success = i_weth.transfer(destinationChainReceiver, amount);
-            if (!success) {
-                revert TokenBridge__TransferFailed();
-            }
+        (address destinationChainReceiver, uint256 amount) = abi.decode(message.data, (address, uint256));
+        if (i_wethHomeChainSelector != i_thisChainSelector) {
+            i_weth.bridgeMint(destinationChainReceiver, amount);
         } else {
-            // Mint it if you're not at the "home base"
-            (bool success,) = address(i_weth).call(abi.encodeWithSelector(selector, destinationChainReceiver, amount));
+            bool success = i_weth.transfer(destinationChainReceiver, amount);
             if (!success) {
                 revert TokenBridge__TransferFailed();
             }
