@@ -5,6 +5,7 @@ pragma solidity 0.8.25;
 import { Test } from "forge-std/Test.sol";
 import { DeployDTsla, dTSLA } from "../script/DeployDTsla.s.sol";
 import { MockFunctionsRouter } from "../src/test/mocks/MockFunctionsRouter.sol";
+import { IGetTslaReturnTypes } from "../src/interfaces/IGetTslaReturnTypes.sol";
 
 abstract contract Base_Test is Test {
     DeployDTsla public deployDTsla;
@@ -17,19 +18,17 @@ abstract contract Base_Test is Test {
     function setUp() public virtual {
         deployDTsla = new DeployDTsla();
 
-        (
-            uint64 subId,
-            string memory mintSource,
-            string memory redeemSource,
-            address functionsRouter,
-            bytes32 donId,
-            address tslaFeed,
-            address usdcFeed,
-            address redemptionCoin
-        ) = deployDTsla.getdTslaRequirements();
-        mockFunctionsRouter = MockFunctionsRouter(functionsRouter);
+        IGetTslaReturnTypes.GetTslaReturnType memory tslaReturnValues = deployDTsla.getdTslaRequirements();
+        mockFunctionsRouter = MockFunctionsRouter(tslaReturnValues.functionsRouter);
         dtsla = deployDTsla.deployDTSLA(
-            subId, mintSource, redeemSource, functionsRouter, donId, tslaFeed, usdcFeed, redemptionCoin
+            tslaReturnValues.subId,
+            tslaReturnValues.mintSource,
+            tslaReturnValues.redeemSource,
+            tslaReturnValues.functionsRouter,
+            tslaReturnValues.donId,
+            tslaReturnValues.tslaFeed,
+            tslaReturnValues.usdcFeed,
+            tslaReturnValues.redemptionCoin
         );
     }
 

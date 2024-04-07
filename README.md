@@ -140,10 +140,17 @@ This is essentially a synthetic TSLA token, it's follows a similar architecture 
 
 You can learn more about how to build these by following the [Cyfrin Updraft](https://updraft.cyfrin.io/) curriculum. 
 
-## CrossChainWETH.sol
+## BridgedWETH.sol
 
 So, token transfers are baked into the CCIP protocol, but you have to work with the DONs to get these setup. We will show you how to create your own token pools with CCIP and not bother working with the DONs, since CCIP allows you to send arbitrary data to the other chain.
 
+1. WETH contract on "home" chain 
+2. BridgedWETH contract on all other chains 
+3. Chainlink CCIP Sender & Receiver Contract 
+  - Lock the WETH 
+  - Emit the message to unlock on the other chain 
+  - Mint the WETH 
+  - Will need to burn the WETH and send it back 
 
 # Getting Started 
 
