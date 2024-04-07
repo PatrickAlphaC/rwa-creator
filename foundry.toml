@@ -5,6 +5,7 @@ libs = ["lib"]
 remappings = [
     '@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/',
     '@openzeppelin/contracts=lib/openzeppelin-contracts/contracts',
+    '@chainlink/contracts-ccip/=lib/ccip-contracts/contracts-ccip/',
 ]
 fs_permissions = [{ access = "read", path = "./" }]
 evm_version = "cancun"

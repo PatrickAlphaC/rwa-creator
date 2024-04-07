@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 import { Script } from "forge-std/Script.sol";
 import { HelperConfig } from "./HelperConfig.sol";
 import { dTSLA } from "../src/dTSLA.sol";
+import { IGetTslaReturnTypes } from "../src/interfaces/IGetTslaReturnTypes.sol";
 
 contract DeployDTsla is Script {
     string constant alpacaMintSource = "./functions/sources/alpacaBalance.js";
@@ -11,27 +12,24 @@ contract DeployDTsla is Script {
 
     function run() external {
         // Get params
-        (
-            uint64 subId,
-            string memory mintSource,
-            string memory redeemSource,
-            address functionsRouter,
-            bytes32 donId,
-            address tslaFeed,
-            address usdcFeed,
-            address redemptionCoin
-        ) = getdTslaRequirements();
+        IGetTslaReturnTypes.GetTslaReturnType memory tslaReturnType = getdTslaRequirements();
 
         // Actually deploy
         vm.startBroadcast();
-        deployDTSLA(subId, mintSource, redeemSource, functionsRouter, donId, tslaFeed, usdcFeed, redemptionCoin);
+        deployDTSLA(
+            tslaReturnType.subId,
+            tslaReturnType.mintSource,
+            tslaReturnType.redeemSource,
+            tslaReturnType.functionsRouter,
+            tslaReturnType.donId,
+            tslaReturnType.tslaFeed,
+            tslaReturnType.usdcFeed,
+            tslaReturnType.redemptionCoin
+        );
         vm.stopBroadcast();
     }
 
-    function getdTslaRequirements()
-        public
-        returns (uint64, string memory, string memory, address, bytes32, address, address, address)
-    {
+    function getdTslaRequirements() public returns (IGetTslaReturnTypes.GetTslaReturnType memory) {
         HelperConfig helperConfig = new HelperConfig();
         (
             address tslaFeed,
@@ -40,7 +38,9 @@ contract DeployDTsla is Script {
             address functionsRouter,
             bytes32 donId,
             uint64 subId,
-            address redemptionCoin
+            address redemptionCoin,
+            ,
+            ,
         ) = helperConfig.activeNetworkConfig();
 
         if (
@@ -51,7 +51,9 @@ contract DeployDTsla is Script {
         }
         string memory mintSource = vm.readFile(alpacaMintSource);
         string memory redeemSource = vm.readFile(alpacaRedeemSource);
-        return (subId, mintSource, redeemSource, functionsRouter, donId, tslaFeed, usdcFeed, redemptionCoin);
+        return IGetTslaReturnTypes.GetTslaReturnType(
+            subId, mintSource, redeemSource, functionsRouter, donId, tslaFeed, usdcFeed, redemptionCoin
+        );
     }
 
     function deployDTSLA(

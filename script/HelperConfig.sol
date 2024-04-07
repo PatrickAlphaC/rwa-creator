@@ -4,9 +4,13 @@ pragma solidity 0.8.25;
 import { MockV3Aggregator } from "../src/test/mocks/MockV3Aggregator.sol";
 import { MockFunctionsRouter } from "../src/test/mocks/MockFunctionsRouter.sol";
 import { MockUSDC } from "../src/test/mocks/MockUSDC.sol";
+import { MockCCIPRouter } from "@chainlink/contracts-ccip/src/v0.8/ccip/test/mocks/MockRouter.sol";
+import { MockLinkToken } from "../src/test/mocks/MockLinkToken.sol";
 
 contract HelperConfig {
     NetworkConfig public activeNetworkConfig;
+
+    mapping(uint256 chainId => uint64 ccipChainSelector) public chainIdToCCIPChainSelector;
 
     struct NetworkConfig {
         address tslaPriceFeed;
@@ -16,6 +20,9 @@ contract HelperConfig {
         bytes32 donId;
         uint64 subId;
         address redemptionCoin;
+        address linkToken;
+        address ccipRouter;
+        uint64 ccipChainSelector;
     }
 
     mapping(uint256 => NetworkConfig) public chainIdToNetworkConfig;
@@ -25,6 +32,8 @@ contract HelperConfig {
     MockV3Aggregator public ethUsdFeedMock;
     MockV3Aggregator public usdcFeedMock;
     MockUSDC public usdcMock;
+    MockLinkToken public linkTokenMock;
+    MockCCIPRouter public ccipRouterMock;
 
     MockFunctionsRouter public functionsRouterMock;
 
@@ -49,7 +58,10 @@ contract HelperConfig {
             donId: 0x66756e2d706f6c79676f6e2d6d61696e6e65742d310000000000000000000000,
             subId: 0, // TODO
             // USDC on Polygon
-            redemptionCoin: 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359
+            redemptionCoin: 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359,
+            linkToken: 0xb0897686c545045aFc77CF20eC7A532E3120E0F1,
+            ccipRouter: 0x849c5ED5a80F5B408Dd4969b78c2C8fdf0565Bfe,
+            ccipChainSelector: 4_051_577_828_743_386_545
         });
         // minimumRedemptionAmount: 30e6 // Please see your brokerage for min redemption amounts
         // https://alpaca.markets/support/crypto-wallet-faq
@@ -64,7 +76,10 @@ contract HelperConfig {
             donId: 0x66756e2d706f6c79676f6e2d6d756d6261692d31000000000000000000000000,
             subId: 1396,
             // USDC on Mumbai
-            redemptionCoin: 0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747
+            redemptionCoin: 0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747,
+            linkToken: 0x326C977E6efc84E512bB9C30f76E30c160eD06FB,
+            ccipRouter: 0x1035CabC275068e0F4b745A29CEDf38E13aF41b1,
+            ccipChainSelector: 12_532_609_583_862_916_517
         });
         // minimumRedemptionAmount: 30e6 // Please see your brokerage for min redemption amounts
         // https://alpaca.markets/support/crypto-wallet-faq
@@ -78,8 +93,11 @@ contract HelperConfig {
             functionsRouter: address(functionsRouterMock),
             donId: 0x66756e2d706f6c79676f6e2d6d756d6261692d31000000000000000000000000, // Dummy
             subId: 1, // Dummy non-zero
-            redemptionCoin: address(usdcMock)
-        });
+            redemptionCoin: address(usdcMock),
+            linkToken: address(linkTokenMock),
+            ccipRouter: address(ccipRouterMock),
+            ccipChainSelector: 1 // This is a dummy non-zero value
+         });
         // minimumRedemptionAmount: 30e6 // Please see your brokerage for min redemption amounts
         // https://alpaca.markets/support/crypto-wallet-faq
     }
@@ -90,6 +108,8 @@ contract HelperConfig {
         ethUsdFeedMock = new MockV3Aggregator(DECIAMLS, INITIAL_ANSWER);
         usdcFeedMock = new MockV3Aggregator(DECIAMLS, INITIAL_ANSWER_USD);
         functionsRouterMock = new MockFunctionsRouter();
+        ccipRouterMock = new MockCCIPRouter();
+        linkTokenMock = new MockLinkToken();
         return getAnvilEthConfig();
     }
 }
