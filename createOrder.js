@@ -1,7 +1,7 @@
 // Sample script to show creating an order works
 
-const axios = require('axios');
-require('dotenv').config();
+const axios = require('axios')
+require('dotenv').config()
 
 // returns string: client_order_id, string: orderStatus, int: responseStatus
 async function placeOrder(symbol, qty, side) {
@@ -21,15 +21,15 @@ async function placeOrder(symbol, qty, side) {
             symbol: symbol,
             qty: qty
         }
-    });
+    })
 
-    const responseStatus = response.status;
-    console.log(`\nResponse status: ${responseStatus}\n`);
-    console.log(response.data);
-    console.log(`\n`);
+    const responseStatus = response.status
+    console.log(`\nResponse status: ${responseStatus}\n`)
+    console.log(response.data)
+    console.log(`\n`)
 
-    const { client_order_id, status: orderStatus } = response.data;
-    return { client_order_id, orderStatus, responseStatus };
+    const { client_order_id, status: orderStatus } = response.data
+    return { client_order_id, orderStatus, responseStatus }
 }
 
-placeOrder("AAPL", 1, "buy");
+placeOrder("AAPL", 1, "sell")

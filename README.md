@@ -17,6 +17,9 @@
     - [Examples don't make sense](#examples-dont-make-sense)
     - [Examples that would make sense](#examples-that-would-make-sense)
 - [The four examples in this repo](#the-four-examples-in-this-repo)
+  - [dTSLA.sol](#dtslasol)
+    - [V1](#v1)
+    - [V2 (not implemented)](#v2-not-implemented)
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
   - [Installation](#installation)
@@ -110,8 +113,8 @@ So since we have 3 categories each with 2 options, we have 8 different types of 
 In this repo, we will go over how to tokenize a real world asset. 
 
 1. Cross-Chain WETH with On-Chain collateral, Directly Backed: `AOnCOnDB` - `CrossChainWETH.sol` 
-3. TSLA Share with On-Chain collateral, Synthetic: `AOffCOnSB` - `sTSLA.sol` ✅ 
-4. TSLA Share with Off-Chain collateral, Directly Backed: `AOffCOffDB` - `dTSLA.sol` ✅ 
+2. TSLA Share with On-Chain collateral, Synthetic: `AOffCOnSB` - `sTSLA.sol` ✅ 
+3. TSLA Share with Off-Chain collateral, Directly Backed: `AOffCOffDB` - `dTSLA.sol` ✅ 
 
 The idea here, is that once you see the power of how to do our fourth example, you should be able to *tokenize any real world assets* in the world. 
 
@@ -123,7 +126,7 @@ The reason we have 4 examples, is that each step from 1 -> 4, we learn a little 
 1. Only the owner can mint `dTSLA`
 2. Anyone can redeem `dTSLA` for `USDC` or "the stablecoin" of choice.
   - Chainlink functions will kick off a `TSLA` sell for USDC, and then send it to the contract
-3. The user will have then then call `finishRedeem` to get their `USDC`.
+3. The user will have to then call `finishRedeem` to get their `USDC`.
 
 ### V2 (not implemented)
 1. Users can send USDC -> `dTSLA.sol` via `sendMintRequest` via Chainlink Functions. This will kick off the following:
@@ -132,7 +135,6 @@ The reason we have 4 examples, is that each step from 1 -> 4, we learn a little 
   - USD will be used to buy TSLA shares
   - The Chainlink Functions will then callback to `_mintFulFillRequest`, to enable `dTSLA` tokens to the user.
 2. The user can then call `finishMint` to withdraw their minted `dTSLA` tokens. 
-
 
 ## sTSLA.sol
 

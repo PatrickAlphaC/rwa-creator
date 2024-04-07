@@ -10,6 +10,7 @@ remappings = [
 fs_permissions = [{ access = "read", path = "./" }]
 evm_version = "cancun"
 solc = "0.8.25"
+via_ir = true
 
 [etherscan]
 mainnet = { key = "${ETHERSCAN_API_KEY}" }
