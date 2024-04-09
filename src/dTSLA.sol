@@ -198,7 +198,10 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
         uint256 amountToWithdraw = s_userToWithdrawalAmount[msg.sender];
         s_userToWithdrawalAmount[msg.sender] = 0;
         // Send the user their USDC
-        ERC20(i_redemptionCoin).transfer(msg.sender, amountToWithdraw);
+        bool succ = ERC20(i_redemptionCoin).transfer(msg.sender, amountToWithdraw);
+        if (!succ) {
+            revert dTSLA__RedemptionFailed();
+        }
     }
 
     function pause() external onlyOwner {
