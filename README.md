@@ -42,6 +42,7 @@ We can tokenize real world assets by combining any of the following traits:
 - Asset location: 
   - On or Off Chain Asset Represented 
   - Nomenclature: [`AOn`, `AOff`] 
+    - Note: By using an on-chain asset, it could be considered no longer "real world".
 - Collateral location: 
   - On or Off-Chain Collateral 
   - Nomenclature: [`COn`, `COff`] 

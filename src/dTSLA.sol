@@ -45,7 +45,7 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
     address s_functionsRouter;
     string s_mintSource;
     string s_redeemSource;
-    
+
     // donID - Hardcoded for Mumbai
     // Check to get the donID for your supported network https://docs.chain.link/chainlink-functions/supported-networks
     bytes32 s_donID;
@@ -216,7 +216,7 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
         uint256 amountOfTokensToMint = s_requestIdToRequest[requestId].amountOfToken;
         s_portfolioBalance = uint256(bytes32(response));
 
-        if (_getCollateralRatioAdjustedTotalBalance(amountOfTokensToMint) > s_portfolioBalance) {
+        if (_getCollateralRatioAdjustedTotalBalance(amountOfTokensToMint + totalSupply()) > s_portfolioBalance) {
             revert dTSLA__NotEnoughCollateral();
         }
 
