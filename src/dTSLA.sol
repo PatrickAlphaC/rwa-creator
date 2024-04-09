@@ -216,7 +216,7 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
         uint256 amountOfTokensToMint = s_requestIdToRequest[requestId].amountOfToken;
         s_portfolioBalance = uint256(bytes32(response));
 
-        if (_getCollateralRatioAdjustedTotalBalance(amountOfTokensToMint + totalSupply()) > s_portfolioBalance) {
+        if (_getCollateralRatioAdjustedTotalBalance(amountOfTokensToMint) > s_portfolioBalance) {
             revert dTSLA__NotEnoughCollateral();
         }
 
