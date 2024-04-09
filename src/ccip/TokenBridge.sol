@@ -157,6 +157,13 @@ contract TokenBridge is OwnerIsCreator, CCIPReceiver {
         }
     }
 
+    function withdrawExtra() external onlyOwner {
+        (bool succ,) = owner().call{ value: address(this).balance }("");
+        if (!succ) {
+            revert TokenBridge__TransferFailed();
+        }
+    }
+
     /*//////////////////////////////////////////////////////////////
                              VIEW AND PURE
     //////////////////////////////////////////////////////////////*/
