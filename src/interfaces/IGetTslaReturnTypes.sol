@@ -11,5 +11,7 @@ interface IGetTslaReturnTypes {
         address tslaFeed;
         address usdcFeed;
         address redemptionCoin;
+        uint64 secretVersion;
+        uint8 secretSlot;
     }
 }

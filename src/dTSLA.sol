@@ -46,10 +46,11 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
     string s_mintSource;
     string s_redeemSource;
 
-    // donID - Hardcoded for Mumbai
     // Check to get the donID for your supported network https://docs.chain.link/chainlink-functions/supported-networks
     bytes32 s_donID;
     uint256 s_portfolioBalance;
+    uint64 s_secretVersion;
+    uint8 s_secretSlot;
 
     mapping(bytes32 requestId => dTslaRequest request) private s_requestIdToRequest;
     mapping(address user => uint256 amountAvailableForWithdrawal) private s_userToWithdrawalAmount;
@@ -91,7 +92,9 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
         bytes32 donId,
         address tslaPriceFeed,
         address usdcPriceFeed,
-        address redemptionCoin
+        address redemptionCoin,
+        uint64 secretVersion,
+        uint8 secretSlot
     )
         FunctionsClient(functionsRouter)
         ConfirmedOwner(msg.sender)
@@ -105,8 +108,18 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
         i_usdcUsdFeed = usdcPriceFeed;
         i_subId = subId;
         i_redemptionCoin = redemptionCoin;
-
         i_redemptionCoinDecimals = ERC20(redemptionCoin).decimals();
+
+        s_secretVersion = secretVersion;
+        s_secretSlot = secretSlot;
+    }
+
+    function setSecretVersion(uint64 secretVersion) external onlyOwner {
+        s_secretVersion = secretVersion;
+    }
+
+    function setSecretSlot(uint8 secretSlot) external onlyOwner {
+        s_secretSlot = secretSlot;
     }
 
     /**
@@ -126,6 +139,7 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
         }
         FunctionsRequest.Request memory req;
         req.initializeRequestForInlineJavaScript(s_mintSource); // Initialize the request with JS code
+        req.addDONHostedSecrets(s_secretSlot, s_secretVersion);
 
         // Send the request and store the request ID
         requestId = _sendRequest(req.encodeCBOR(), i_subId, GAS_LIMIT, s_donID);

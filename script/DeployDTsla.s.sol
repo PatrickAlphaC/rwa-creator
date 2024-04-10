@@ -24,7 +24,9 @@ contract DeployDTsla is Script {
             tslaReturnType.donId,
             tslaReturnType.tslaFeed,
             tslaReturnType.usdcFeed,
-            tslaReturnType.redemptionCoin
+            tslaReturnType.redemptionCoin,
+            tslaReturnType.secretVersion,
+            tslaReturnType.secretSlot
         );
         vm.stopBroadcast();
     }
@@ -41,6 +43,9 @@ contract DeployDTsla is Script {
             address redemptionCoin,
             ,
             ,
+            ,
+            uint64 secretVersion,
+            uint8 secretSlot
         ) = helperConfig.activeNetworkConfig();
 
         if (
@@ -52,7 +57,16 @@ contract DeployDTsla is Script {
         string memory mintSource = vm.readFile(alpacaMintSource);
         string memory redeemSource = vm.readFile(alpacaRedeemSource);
         return IGetTslaReturnTypes.GetTslaReturnType(
-            subId, mintSource, redeemSource, functionsRouter, donId, tslaFeed, usdcFeed, redemptionCoin
+            subId,
+            mintSource,
+            redeemSource,
+            functionsRouter,
+            donId,
+            tslaFeed,
+            usdcFeed,
+            redemptionCoin,
+            secretVersion,
+            secretSlot
         );
     }
 
@@ -64,13 +78,25 @@ contract DeployDTsla is Script {
         bytes32 donId,
         address tslaFeed,
         address usdcFeed,
-        address redemptionCoin
+        address redemptionCoin,
+        uint64 secretVersion,
+        uint8 secretSlot
     )
         public
         returns (dTSLA)
     {
-        dTSLA dTsla =
-            new dTSLA(subId, mintSource, redeemSource, functionsRouter, donId, tslaFeed, usdcFeed, redemptionCoin);
+        dTSLA dTsla = new dTSLA(
+            subId,
+            mintSource,
+            redeemSource,
+            functionsRouter,
+            donId,
+            tslaFeed,
+            usdcFeed,
+            redemptionCoin,
+            secretVersion,
+            secretSlot
+        );
         return dTsla;
     }
 }

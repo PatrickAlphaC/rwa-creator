@@ -23,6 +23,8 @@ contract HelperConfig {
         address linkToken;
         address ccipRouter;
         uint64 ccipChainSelector;
+        uint64 secretVersion;
+        uint8 secretSlot;
     }
 
     mapping(uint256 => NetworkConfig) public chainIdToNetworkConfig;
@@ -61,8 +63,10 @@ contract HelperConfig {
             redemptionCoin: 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359,
             linkToken: 0xb0897686c545045aFc77CF20eC7A532E3120E0F1,
             ccipRouter: 0x849c5ED5a80F5B408Dd4969b78c2C8fdf0565Bfe,
-            ccipChainSelector: 4_051_577_828_743_386_545
-        });
+            ccipChainSelector: 4_051_577_828_743_386_545,
+            secretVersion: 0, // fill in!
+            secretSlot: 0 // fill in!
+         });
         // minimumRedemptionAmount: 30e6 // Please see your brokerage for min redemption amounts
         // https://alpaca.markets/support/crypto-wallet-faq
     }
@@ -79,8 +83,10 @@ contract HelperConfig {
             redemptionCoin: 0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747,
             linkToken: 0x326C977E6efc84E512bB9C30f76E30c160eD06FB,
             ccipRouter: 0x1035CabC275068e0F4b745A29CEDf38E13aF41b1,
-            ccipChainSelector: 12_532_609_583_862_916_517
-        });
+            ccipChainSelector: 12_532_609_583_862_916_517,
+            secretVersion: 0, // fill in!
+            secretSlot: 0 // fill in!
+         });
         // minimumRedemptionAmount: 30e6 // Please see your brokerage for min redemption amounts
         // https://alpaca.markets/support/crypto-wallet-faq
     }
@@ -97,8 +103,10 @@ contract HelperConfig {
             redemptionCoin: 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238,
             linkToken: 0x779877A7B0D9E8603169DdbD7836e478b4624789,
             ccipRouter: 0x0BF3dE8c5D3e8A2B34D2BEeB17ABfCeBaf363A59,
-            ccipChainSelector: 16_015_286_601_757_825_753
-        });
+            ccipChainSelector: 16_015_286_601_757_825_753,
+            secretVersion: 0, // fill in!
+            secretSlot: 0 // fill in!
+         });
         // minimumRedemptionAmount: 30e6 // Please see your brokerage for min redemption amounts
         // https://alpaca.markets/support/crypto-wallet-faq
     }
@@ -114,8 +122,10 @@ contract HelperConfig {
             redemptionCoin: address(usdcMock),
             linkToken: address(linkTokenMock),
             ccipRouter: address(ccipRouterMock),
-            ccipChainSelector: 1 // This is a dummy non-zero value
-         });
+            ccipChainSelector: 1, // This is a dummy non-zero value
+            secretVersion: 0,
+            secretSlot: 0
+        });
         // minimumRedemptionAmount: 30e6 // Please see your brokerage for min redemption amounts
         // https://alpaca.markets/support/crypto-wallet-faq
     }

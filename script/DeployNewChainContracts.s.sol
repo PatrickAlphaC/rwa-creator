@@ -36,7 +36,8 @@ contract DeployNewChainContracts is Script {
 
     function getTokenBridgeRequirements() public returns (address, address, uint64) {
         HelperConfig helperConfig = new HelperConfig();
-        (,,,,,,, address linkToken, address ccipRouter, uint64 sourceChainSelector) = helperConfig.activeNetworkConfig();
+        (,,,,,,, address linkToken, address ccipRouter, uint64 sourceChainSelector,,) =
+            helperConfig.activeNetworkConfig();
         return (linkToken, ccipRouter, sourceChainSelector);
     }
 }

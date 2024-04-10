@@ -18,7 +18,7 @@ contract DeploySTsla is Script {
 
     function getdTslaRequirements() public returns (address, address) {
         HelperConfig helperConfig = new HelperConfig();
-        (address tslaFeed,, address ethFeed,,,,,,,) = helperConfig.activeNetworkConfig();
+        (address tslaFeed,, address ethFeed,,,,,,,,,) = helperConfig.activeNetworkConfig();
 
         if (tslaFeed == address(0) || ethFeed == address(0)) {
             revert("something is wrong");

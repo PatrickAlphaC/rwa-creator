@@ -28,7 +28,9 @@ abstract contract Base_Test is Test {
             tslaReturnValues.donId,
             tslaReturnValues.tslaFeed,
             tslaReturnValues.usdcFeed,
-            tslaReturnValues.redemptionCoin
+            tslaReturnValues.redemptionCoin,
+            tslaReturnValues.secretVersion,
+            tslaReturnValues.secretSlot
         );
     }
 

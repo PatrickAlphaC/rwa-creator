@@ -28,7 +28,7 @@ contract TokenBridgeTest is Test {
         DeployHomeChainContracts deployHomeChainContracts = new DeployHomeChainContracts();
         DeployNewChainContracts deployNewChainContracts = new DeployNewChainContracts();
         HelperConfig helperConfig = new HelperConfig();
-        (,,,,,,, address linkToken, address ccipRouter,) = helperConfig.activeNetworkConfig();
+        (,,,,,,, address linkToken, address ccipRouter,,,) = helperConfig.activeNetworkConfig();
         homeChainWETH = deployHomeChainContracts.deployWETH();
         mockRouter = MockCCIPRouter(ccipRouter);
 
