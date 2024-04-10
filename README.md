@@ -33,7 +33,7 @@
 - [Currently Live Examples of Tokenized RWAs](#currently-live-examples-of-tokenized-rwas)
 - [What does this unlock?](#what-does-this-unlock)
 - [Disclaimer](#disclaimer)
-  - [Notes for patrick](#notes-for-patrick)
+  - [Example deployments](#example-deployments)
 
 
 # The Methodology
@@ -246,7 +246,4 @@ None of the code has been audited or undergone a security review, use at your ow
 Also in this repo:
 - Generalized CCIP setup for the 3 types we demo in this repo. CrossChain functionality will be crucial for RWAs to be useful. 
 
-## Notes for patrick
-
-Alpaca endpoints:
-- https://paper-api.alpaca.markets/v2
+## Example deployments
