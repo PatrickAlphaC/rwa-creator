@@ -56,4 +56,4 @@ console.log(`Alpaca Portfolio Balance: $${portfolioBalance}`)
 // - Functions.encodeInt256
 // - Functions.encodeString
 // Or return a custom Buffer for a custom byte encoding
-return Functions.encodeUint256(Math.round(portfolioBalance * 100))
+return Functions.encodeUint256(Math.round(portfolioBalance * 1000000000000000000))
