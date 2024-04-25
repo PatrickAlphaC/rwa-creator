@@ -40,7 +40,7 @@ contract HelperConfig {
     MockFunctionsRouter public functionsRouterMock;
 
     // TSLA USD, ETH USD, and USDC USD both have 8 decimals
-    uint8 public constant DECIAMLS = 8;
+    uint8 public constant DECIMALS = 8;
     int256 public constant INITIAL_ANSWER = 2000e8;
     int256 public constant INITIAL_ANSWER_USD = 1e8;
 
@@ -132,9 +132,9 @@ contract HelperConfig {
 
     function _setupAnvilConfig() internal returns (NetworkConfig memory) {
         usdcMock = new MockUSDC();
-        tslaFeedMock = new MockV3Aggregator(DECIAMLS, INITIAL_ANSWER);
-        ethUsdFeedMock = new MockV3Aggregator(DECIAMLS, INITIAL_ANSWER);
-        usdcFeedMock = new MockV3Aggregator(DECIAMLS, INITIAL_ANSWER_USD);
+        tslaFeedMock = new MockV3Aggregator(DECIMALS, INITIAL_ANSWER);
+        ethUsdFeedMock = new MockV3Aggregator(DECIMALS, INITIAL_ANSWER);
+        usdcFeedMock = new MockV3Aggregator(DECIMALS, INITIAL_ANSWER_USD);
         functionsRouterMock = new MockFunctionsRouter();
         ccipRouterMock = new MockCCIPRouter();
         linkTokenMock = new MockLinkToken();
