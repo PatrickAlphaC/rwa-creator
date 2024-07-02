@@ -307,7 +307,7 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
      * @return the amount of redemptionCoin with 18 decimals (WAD)
      */
     function getUsdcValueOfUsd(uint256 usdAmount) public view returns (uint256) {
-        return (usdAmount * getUsdcPrice()) / PRECISION;
+        return (usdAmount * PRECISION) / getUsdcPrice();
     }
 
     function getTotalUsdValue() public view returns (uint256) {
