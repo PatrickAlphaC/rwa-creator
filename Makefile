@@ -42,5 +42,5 @@ getweth :; cast call TOKEN_BRIDGE_ADDRESS "getWeth()" --rpc-url ${SEPOLIA_RPC_UR
 setSupportedChain-mumbai :; cast send TOKEN_BRIDGE_ADDRESS "setSupportedChain(uint64,bool)" 16015286601757825753 true  --rpc-url ${MUMBAI_RPC_URL} --account XXX --sender YYY
 setSupportedChain-sepolia :; cast send TOKEN_BRIDGE_ADDRESS "setSupportedChain(uint64,bool)" 12532609583862916517 true --rpc-url ${SEPOLIA_RPC_URL} --account XXX --sender YYY
 
-# Multi-chain deploymetn doesn't work with account/sender yet :/ 
+# Multi-chain deployment doesn't work with account/sender yet :/ 
 deploy-bridges :; forge script script/DeployTokenBridges.s.sol --private-key ${PRIVATE_KEY} --verify --broadcast
