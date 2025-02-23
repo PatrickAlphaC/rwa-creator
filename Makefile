@@ -39,7 +39,8 @@ simulate :; npm run simulate
 
 getweth :; cast call TOKEN_BRIDGE_ADDRESS "getWeth()" --rpc-url ${SEPOLIA_RPC_URL} | cut -c 27- | xargs printf "0x%s\n" | cast --to-checksum-address 
 
-setSupportedChain-mumbai :; cast send TOKEN_BRIDGE_ADDRESS "setSupportedChain(uint64,bool)" 16015286601757825753 true  --rpc-url ${MUMBAI_RPC_URL} --account XXX --sender YYY
+# MUMBAI is depricated as of April 2024, use AMOY instead
+setSupportedChain-amoy :; cast send TOKEN_BRIDGE_ADDRESS "setSupportedChain(uint64,bool)" 16281711391670634445 true  --rpc-url ${AMOY_RPC_URL} --account XXX --sender YYY
 setSupportedChain-sepolia :; cast send TOKEN_BRIDGE_ADDRESS "setSupportedChain(uint64,bool)" 12532609583862916517 true --rpc-url ${SEPOLIA_RPC_URL} --account XXX --sender YYY
 
 # Multi-chain deployment doesn't work with account/sender yet :/ 
