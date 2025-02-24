@@ -6,6 +6,7 @@ import { HelperConfig } from "./HelperConfig.sol";
 import { TokenBridge } from "../src/ccip/TokenBridge.sol";
 import { WETH } from "../src/ccip/WETH.sol";
 
+// Deploy the contracts using the script
 // Amoy WETH: 0x089dc24123e0A27d44282A1CcC2fd815989E3300
 // Amoy TokenBridge: 0xa9aCB9825F3A152c9dA7386D711e4a50a066a87D
 // Sepolia TokenBridge: 0x8Bd94F5E6024BBADB026E80D453f5F8fAB2bC5Cc
