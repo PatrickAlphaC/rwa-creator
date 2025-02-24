@@ -46,7 +46,7 @@ contract HelperConfig {
 
     constructor() {
         chainIdToNetworkConfig[137] = getPolygonConfig();
-        chainIdToNetworkConfig[80_001] = getMumbaiConfig();
+        chainIdToNetworkConfig[80_002] = getAmoyConfig();
         chainIdToNetworkConfig[31_337] = _setupAnvilConfig();
         activeNetworkConfig = chainIdToNetworkConfig[block.chainid];
     }
@@ -71,19 +71,19 @@ contract HelperConfig {
         // https://alpaca.markets/support/crypto-wallet-faq
     }
 
-    function getMumbaiConfig() internal pure returns (NetworkConfig memory config) {
+    function getAmoyConfig() internal pure returns (NetworkConfig memory config) {
         config = NetworkConfig({
-            tslaPriceFeed: 0x1C2252aeeD50e0c9B64bDfF2735Ee3C932F5C408, // this is LINK / USD but it'll work fine
-            usdcPriceFeed: 0x572dDec9087154dC5dfBB1546Bb62713147e0Ab0,
-            ethUsdPriceFeed: 0x0715A7794a1dc8e42615F059dD6e406A6594651A,
-            functionsRouter: 0x6E2dc0F9DB014aE19888F539E59285D2Ea04244C,
-            donId: 0x66756e2d706f6c79676f6e2d6d756d6261692d31000000000000000000000000,
-            subId: 1396,
-            // USDC on Mumbai
-            redemptionCoin: 0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747,
-            linkToken: 0x326C977E6efc84E512bB9C30f76E30c160eD06FB,
-            ccipRouter: 0x1035CabC275068e0F4b745A29CEDf38E13aF41b1,
-            ccipChainSelector: 12_532_609_583_862_916_517,
+            tslaPriceFeed: 0xc2e2848e28B9fE430Ab44F55a8437a33802a219C, // this is LINK / USD but it'll work fine
+            usdcPriceFeed: 0x1b8739bB4CdF0089d07097A9Ae5Bd274b29C6F16,
+            ethUsdPriceFeed: 0xF0d50568e3A7e8259E16663972b11910F89BD8e7,
+            functionsRouter: 0xC22a79eBA640940ABB6dF0f7982cc119578E11De,
+            donId: 0x66756e2d706f6c79676f6e2d616d6f792d310000000000000000000000000000,
+            subId: 1396, // TODO
+            // USDC on Amoy
+            redemptionCoin: 0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582, 
+            linkToken: 0x0Fd9e8d3aF1aaee056EB9e802c3A762a667b1904,
+            ccipRouter: 0x9C32fCB86BF0f4a1A8921a9Fe46de3198bb884B2,
+            ccipChainSelector: 16_281_711_391_670_634_445,
             secretVersion: 0, // fill in!
             secretSlot: 0 // fill in!
          });
@@ -99,7 +99,7 @@ contract HelperConfig {
             functionsRouter: 0xb83E47C2bC239B3bf370bc41e1459A34b41238D0,
             donId: 0x66756e2d657468657265756d2d7365706f6c69612d3100000000000000000000,
             subId: 2274,
-            // USDC on Mumbai
+            // USDC on Sepolia
             redemptionCoin: 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238,
             linkToken: 0x779877A7B0D9E8603169DdbD7836e478b4624789,
             ccipRouter: 0x0BF3dE8c5D3e8A2B34D2BEeB17ABfCeBaf363A59,

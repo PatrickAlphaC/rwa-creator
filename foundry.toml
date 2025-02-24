@@ -14,11 +14,11 @@ solc = "0.8.25"
 [etherscan]
 polygon = { key = "${POLYGONSCAN_API_KEY}" }
 sepolia = { key = "${ETHERSCAN_API_KEY}" }
-mumbai = { key = "${POLYGONSCAN_API_KEY}" }
+amoy = { key = "${POLYGONSCAN_API_KEY}" }
 
 [rpc_endpoints]
 polygon = "${POLYGON_RPC_URL}"
-mumbai = "${MUMBAI_RPC_URL}"
+amoy = "${AMOY_RPC_URL}"
 sepolia = "${SEPOLIA_RPC_URL}"
 
 [invariant]

@@ -6,8 +6,8 @@ import { HelperConfig } from "./HelperConfig.sol";
 import { TokenBridge } from "../src/ccip/TokenBridge.sol";
 import { WETH } from "../src/ccip/WETH.sol";
 
-// Mumbai WETH: 0x089dc24123e0A27d44282A1CcC2fd815989E3300
-// Mumbai TokenBridge: 0xa9aCB9825F3A152c9dA7386D711e4a50a066a87D
+// Amoy WETH: 0x089dc24123e0A27d44282A1CcC2fd815989E3300
+// Amoy TokenBridge: 0xa9aCB9825F3A152c9dA7386D711e4a50a066a87D
 // Sepolia TokenBridge: 0x8Bd94F5E6024BBADB026E80D453f5F8fAB2bC5Cc
 // Sepolia WETH: 0xB7E4d665c3f4ed24Da355F55E6c6046d9C2E79d9
 
@@ -16,16 +16,16 @@ contract DeployHomeChainContracts is Script {
         // Get params
 
         // Actually deploy
-        vm.createSelectFork(vm.rpcUrl("mumbai"));
-        // Mumbai is home base
-        (address mumbaiLinkToken, address mumbaiCcipRouter, uint64 mumbaiCcipChainSelector) =
+        vm.createSelectFork(vm.rpcUrl("amoy"));
+        // Amoy is home base
+        (address amoyLinkToken, address amoyCcipRouter, uint64 amoyCcipChainSelector) =
             getTokenBridgeRequirements();
-        uint64 homeBaseChainSelector = mumbaiCcipChainSelector;
+        uint64 homeBaseChainSelector = amoyCcipChainSelector;
 
         vm.startBroadcast();
         WETH weth = deployWETH();
         TokenBridge tBridge = deployTokenBridge(
-            mumbaiCcipRouter, mumbaiLinkToken, address(weth), homeBaseChainSelector, mumbaiCcipChainSelector
+            amoyCcipRouter, amoyLinkToken, address(weth), homeBaseChainSelector, amoyCcipChainSelector
         );
         vm.stopBroadcast();
 
@@ -36,7 +36,7 @@ contract DeployHomeChainContracts is Script {
         deployTokenBridge(sepCcipRouter, sepLinkToken, payable(address(0)), homeBaseChainSelector, sepChainSelector);
         vm.stopBroadcast();
 
-        vm.createSelectFork(vm.rpcUrl("mumbai"));
+        vm.createSelectFork(vm.rpcUrl("amoy"));
         vm.startBroadcast();
         tBridge.setSupportedChain(sepChainSelector, true);
         vm.stopBroadcast();
