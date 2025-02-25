@@ -6,7 +6,7 @@ import { HelperConfig } from "./HelperConfig.sol";
 import { TokenBridge } from "../src/ccip/TokenBridge.sol";
 
 contract DeployNewChainContracts is Script {
-    uint64 constant HOME_BASE_CHAIN_SELECTOR = 12_532_609_583_862_916_517; // This is mumbai
+    uint64 constant HOME_BASE_CHAIN_SELECTOR = 16_281_711_391_670_634_445; // This is amoy
 
     function run() external {
         // Get params
