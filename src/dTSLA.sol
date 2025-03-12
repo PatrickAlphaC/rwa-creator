@@ -187,6 +187,17 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
         _burn(msg.sender, amountdTsla);
     }
 
+
+    /**
+     * @notice Sets the redeem source JavaScript code for Chainlink Functions
+     * @dev This function allows updating the JavaScript source used in Chainlink Functions requests
+     * @param newRedeemSource - The new JavaScript code as a string
+     */
+    function setRedeemSource(string calldata newRedeemSource) external onlyOwner {
+        require(bytes(newRedeemSource).length > 0, "Redeem source cannot be empty");
+        s_redeemSource = newRedeemSource;
+    }
+
     /**
      * @notice Callback function for fulfilling a request
      * @param requestId The ID of the request to fulfill
