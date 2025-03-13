@@ -19,8 +19,7 @@ contract DeployHomeChainContracts is Script {
         // Actually deploy
         vm.createSelectFork(vm.rpcUrl("amoy"));
         // Amoy is home base
-        (address amoyLinkToken, address amoyCcipRouter, uint64 amoyCcipChainSelector) =
-            getTokenBridgeRequirements();
+        (address amoyLinkToken, address amoyCcipRouter, uint64 amoyCcipChainSelector) = getTokenBridgeRequirements();
         uint64 homeBaseChainSelector = amoyCcipChainSelector;
 
         vm.startBroadcast();

@@ -80,7 +80,7 @@ contract HelperConfig {
             donId: 0x66756e2d706f6c79676f6e2d616d6f792d310000000000000000000000000000,
             subId: 1396, // TODO
             // USDC on Amoy
-            redemptionCoin: 0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582, 
+            redemptionCoin: 0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582,
             linkToken: 0x0Fd9e8d3aF1aaee056EB9e802c3A762a667b1904,
             ccipRouter: 0x9C32fCB86BF0f4a1A8921a9Fe46de3198bb884B2,
             ccipChainSelector: 16_281_711_391_670_634_445,

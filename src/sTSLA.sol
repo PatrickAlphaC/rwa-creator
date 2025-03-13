@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.25;
 
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import {OracleLib, AggregatorV3Interface} from "./libraries/OracleLib.sol";
+import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import { OracleLib, AggregatorV3Interface } from "./libraries/OracleLib.sol";
 
 /*
  * @dev the codebase will mint sTSLA based on the collateral 
@@ -65,7 +65,7 @@ contract sTSLA is ERC20 {
         }
         _burn(msg.sender, amountToRedeem);
         // External
-        (bool success,) = msg.sender.call{value: ethToReturn}("");
+        (bool success,) = msg.sender.call{ value: ethToReturn }("");
         if (!success) {
             revert("sTSLA_feeds: transfer failed");
         }
@@ -107,7 +107,10 @@ contract sTSLA is ERC20 {
         totalCollateralValueUsd = getUsdAmountFromEth(totalCollateralEth);
     }
 
-    function _calculateHealthFactor(uint256 tslaMintedValueUsd, uint256 collateralValueUsd)
+    function _calculateHealthFactor(
+        uint256 tslaMintedValueUsd,
+        uint256 collateralValueUsd
+    )
         internal
         pure
         returns (uint256)

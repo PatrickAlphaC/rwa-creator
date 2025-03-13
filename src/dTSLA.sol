@@ -22,6 +22,7 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
     error dTSLA__NotEnoughCollateral();
     error dTSLA__BelowMinimumRedemption();
     error dTSLA__RedemptionFailed();
+    error dTSLA_RedeemSourceCannotBeEmpty();
 
     // Custom error type
     error UnexpectedRequestID(bytes32 requestId);
@@ -120,6 +121,13 @@ contract dTSLA is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
 
     function setSecretSlot(uint8 secretSlot) external onlyOwner {
         s_secretSlot = secretSlot;
+    }
+
+    function setRedeemSource(string calldata newRedeemSource) external onlyOwner {
+        if (bytes(newRedeemSource).length == 0) {
+            revert dTSLA_RedeemSourceCannotBeEmpty();
+        }
+        s_redeemSource = newRedeemSource;
     }
 
     /**
