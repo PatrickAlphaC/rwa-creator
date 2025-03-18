@@ -54,11 +54,15 @@ contract sTSLA is ERC20 {
         // No external interactions
     }
 
-    function redeemAndBurn(uint256 amountToRedeem) external {
+    function redeemAndBurn(uint256 amountToRedeem) external {git add contracts/sTSLA.sol
+
         // Checks / Effects
         uint256 valueRedeemed = getUsdAmountFromTsla(amountToRedeem);
         uint256 ethToReturn = getEthAmountFromUsd(valueRedeemed);
+
         s_tslaMintedPerUser[msg.sender] -= amountToRedeem;
+        s_ethCollateralPerUser[msg.sender] -= ethToReturn; // Fix: Update collateral mapping
+
         uint256 healthFactor = getHealthFactor(msg.sender);
         if (healthFactor < MIN_HEALTH_FACTOR) {
             revert sTSLA_feeds__InsufficientCollateral();
