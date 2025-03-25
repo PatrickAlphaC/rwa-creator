@@ -59,6 +59,7 @@ contract sTSLA is ERC20 {
         uint256 valueRedeemed = getUsdAmountFromTsla(amountToRedeem);
         uint256 ethToReturn = getEthAmountFromUsd(valueRedeemed);
         s_tslaMintedPerUser[msg.sender] -= amountToRedeem;
+        s_ethCollateralPerUser[msg.sender] -= ethToReturn;
         uint256 healthFactor = getHealthFactor(msg.sender);
         if (healthFactor < MIN_HEALTH_FACTOR) {
             revert sTSLA_feeds__InsufficientCollateral();
