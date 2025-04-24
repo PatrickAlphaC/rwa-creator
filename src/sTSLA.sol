@@ -94,7 +94,7 @@ contract sTSLA is ERC20 {
     function getEthAmountFromUsd(uint256 usdAmountInWei) public view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(i_ethUsdFeed);
         (, int256 price,,,) = priceFeed.staleCheckLatestRoundData();
-        return (usdAmountInWei * PRECISION) / ((uint256(price) * ADDITIONAL_FEED_PRECISION) * PRECISION);
+        return (usdAmountInWei * PRECISION) / ((uint256(price) * ADDITIONAL_FEED_PRECISION));
     }
 
     function getAccountInformationValue(address user)
